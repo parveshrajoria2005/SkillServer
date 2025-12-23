@@ -1,23 +1,23 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const connectDB = require('./config/db');
+const express = require("express");
+const dotenv = require("dotenv");
+const connectDB = require("./config/db");
+const userRoute = require("./routes/userRoute");
 
-
-const app=express();
+const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use("/", userRoute);
 
 dotenv.config();
 
-app.get('/', (req, res) => {
-    res.send('API is running...');
+app.get("/", (req, res) => {
+  res.send({ msg: "Skillserve API is Running" });
 });
 
 // Connect DB
 connectDB();
 
 app.listen(process.env.PORT, () => {
-    console.log(`Server started on port ${process.env.PORT}`);
-}
-);
+  console.log(`Server is Running at Port ${process.env.PORT}`);
+});
